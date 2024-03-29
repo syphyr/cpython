@@ -11,7 +11,7 @@ BLURB        = PATH=$(VENVDIR)/bin:$$PATH blurb
 PAPER        =
 SOURCES      =
 DISTVERSION  = $(shell $(PYTHON) tools/extensions/patchlevel.py)
-SPHINXERRORHANDLING = -W
+#SPHINXERRORHANDLING = -W
 
 # Internal variables.
 PAPEROPT_a4     = -D latex_elements.papersize=a4paper

@@ -62,6 +62,10 @@ smartquotes_excludes = {
 # Avoid a warning with Sphinx >= 2.0
 master_doc = 'contents'
 
+# Allow to build with Sphinx >= 3.2
+c_allow_pre_v3 = True
+c_warn_on_allowed_pre_v3 = False
+
 # Options for HTML output
 # -----------------------
 
