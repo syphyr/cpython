@@ -17,12 +17,17 @@
 #   include <sys/syscall.h>     /* syscall(SYS_gettid) */
 #elif defined(__FreeBSD__)
 #   include <pthread_np.h>      /* pthread_getthreadid_np() */
+#elif defined(__FreeBSD_kernel__)
+#   include <sys/syscall.h>     /* syscall(SYS_thr_self) */
 #elif defined(__OpenBSD__)
 #   include <unistd.h>          /* getthrid() */
 #elif defined(_AIX)
 #   include <sys/thread.h>      /* thread_self() */
 #elif defined(__NetBSD__)
 #   include <lwp.h>             /* _lwp_self() */
+#elif defined(__GNU__)
+#   include <mach.h>            /* mach_thread_self(), mach_task_self(),
+                                   mach_port_deallocate() */
 #endif
 
 /* The POSIX spec requires that use of pthread_attr_setstacksize
@@ -347,6 +352,9 @@ PyThread_get_thread_native_id(void)
 #elif defined(__FreeBSD__)
     int native_id;
     native_id = pthread_getthreadid_np();
+#elif defined(__FreeBSD_kernel__)
+    long native_id;
+    syscall(SYS_thr_self, &native_id);
 #elif defined(__OpenBSD__)
     pid_t native_id;
     native_id = getthrid();
@@ -356,6 +364,10 @@ PyThread_get_thread_native_id(void)
 #elif defined(__NetBSD__)
     lwpid_t native_id;
     native_id = _lwp_self();
+#elif defined(__GNU__)
+    mach_port_t native_id;
+    native_id = mach_thread_self();
+    mach_port_deallocate(mach_task_self(), mach_thread_self());
 #endif
     return (unsigned long) native_id;
 }
