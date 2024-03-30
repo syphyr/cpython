@@ -175,9 +175,12 @@ class HelpFormatter(object):
 
         # default setting for width
         if width is None:
-            import shutil
-            width = shutil.get_terminal_size().columns
-            width -= 2
+            try:
+                import shutil as _shutil
+                width = _shutil.get_terminal_size().columns
+                width -= 2
+            except ImportError:
+                width = 70
 
         self._prog = prog
         self._indent_increment = indent_increment
