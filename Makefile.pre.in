@@ -812,6 +812,7 @@ Modules/signalmodule.o: $(srcdir)/Modules/signalmodule.c $(srcdir)/Modules/posix
 
 Python/dynload_shlib.o: $(srcdir)/Python/dynload_shlib.c Makefile
 	$(CC) -c $(PY_CORE_CFLAGS) \
+		$(if $(MULTIARCH),-DMULTIARCH='"$(MULTIARCH)"') \
 		-DSOABI='"$(SOABI)"' \
 		-o $@ $(srcdir)/Python/dynload_shlib.c
 

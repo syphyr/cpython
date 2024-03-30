@@ -110,6 +110,9 @@ def get_python_inc(plat_specific=0, prefix=None):
                 incdir = os.path.join(get_config_var('srcdir'), 'Include')
                 return os.path.normpath(incdir)
         python_dir = 'python' + get_python_version() + build_flags
+        if not python_build and plat_specific:
+            import sysconfig
+            return sysconfig.get_path('platinclude')
         return os.path.join(prefix, "include", python_dir)
     elif os.name == "nt":
         if python_build:
