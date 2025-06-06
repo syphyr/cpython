@@ -1,3 +1,9 @@
+python3.9 (3.9.23-1+bionic1b) bionic; urgency=medium
+
+  * Python 3.9.23 release.
+
+ -- syphyr <syphyr@gmail.com>  Fri, 06 Jun 2025 22:29:52 +0200
+
 python3.9 (3.9.22-1+bionic1b) bionic; urgency=medium
 
   * Python 3.9.22 release.
