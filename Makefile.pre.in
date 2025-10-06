@@ -2145,8 +2145,10 @@ libinstall:	all $(srcdir)/Modules/xxmodule.c
 			esac; \
 		done; \
 	done
-	$(INSTALL_DATA) `cat pybuilddir.txt`/_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH).py \
-		$(DESTDIR)$(LIBDEST); \
+	$(INSTALL_DATA) `cat pybuilddir.txt`/_sysconfigdata_$(ABIFLAGS)_$(MULTIARCH).py \
+		$(DESTDIR)$(LIBDEST)
+	$(LN) -s _sysconfigdata_$(ABIFLAGS)_$(MULTIARCH).py \
+		$(DESTDIR)$(LIBDEST)/_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH).py
 	$(INSTALL_DATA) $(srcdir)/LICENSE $(DESTDIR)$(LIBDEST)/LICENSE.txt
 	if test -d $(DESTDIR)$(LIBDEST)/distutils/tests; then \
 		$(INSTALL_DATA) $(srcdir)/Modules/xxmodule.c \
@@ -2305,6 +2307,7 @@ sharedinstall: all
 		--install-scripts=$(BINDIR) \
 		--install-platlib=$(DESTSHARED) \
 		--root=$(DESTDIR)/
+	-rm $(DESTDIR)$(DESTSHARED)/_sysconfigdata_$(ABIFLAGS)_$(MULTIARCH).py
 	-rm $(DESTDIR)$(DESTSHARED)/_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH).py
 	-rm -r $(DESTDIR)$(DESTSHARED)/__pycache__
 
