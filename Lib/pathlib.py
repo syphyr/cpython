@@ -1,7 +1,6 @@
 import fnmatch
 import functools
 import io
-import ntpath
 import os
 import posixpath
 import re
@@ -112,6 +111,8 @@ class _Flavour(object):
 class _WindowsFlavour(_Flavour):
     # Reference for Windows paths can be found at
     # http://msdn.microsoft.com/en-us/library/aa365247%28v=vs.85%29.aspx
+
+    import ntpath
 
     sep = '\\'
     altsep = '/'
