@@ -14,6 +14,7 @@ import os
 import re
 import sys
 import warnings
+import fnmatch
 
 from functools import partial
 
@@ -228,6 +229,10 @@ def customize_compiler(compiler):
             cc = newcc
         if 'CXX' in os.environ:
             cxx = os.environ['CXX']
+        if fnmatch.filter([cc, cxx], '*-4.[0-8]'):
+            configure_cflags = configure_cflags.replace('-fstack-protector-strong', '-fstack-protector')
+            ldshared = ldshared.replace('-fstack-protector-strong', '-fstack-protector')
+            cflags = cflags.replace('-fstack-protector-strong', '-fstack-protector')
         if 'LDSHARED' in os.environ:
             ldshared = os.environ['LDSHARED']
         if 'CPP' in os.environ:
