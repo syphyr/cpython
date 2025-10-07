@@ -74,7 +74,10 @@
  PyClassMethod_Type@Base @SVER@
  PyCode_Addr2Line@Base @SVER@
  PyCode_Addr2Location@Base @SVER@
+ PyCode_GetCellvars@Base @SVER@
  PyCode_GetCode@Base @SVER@
+ PyCode_GetFreevars@Base @SVER@
+ PyCode_GetVarnames@Base @SVER@
  PyCode_New@Base @SVER@
  PyCode_NewEmpty@Base @SVER@
  PyCode_NewWithPosOnlyArgs@Base @SVER@
@@ -1145,6 +1148,7 @@
  _PyBytesWriter_Prepare@Base @SVER@
  _PyBytesWriter_Resize@Base @SVER@
  _PyBytesWriter_WriteBytes@Base @SVER@
+ _PyBytes_DecodeEscape2@Base @SVER@
  _PyBytes_DecodeEscape@Base @SVER@
  _PyBytes_Find@Base @SVER@
  _PyBytes_FormatEx@Base @SVER@
@@ -1318,6 +1322,7 @@
  _PyMem_Strdup@Base @SVER@
  _PyMethodWrapper_Type@Base @SVER@
  _PyModuleSpec_IsInitializing@Base @SVER@
+ _PyModule_Add@Base @SVER@
  _PyModule_Clear@Base @SVER@
  _PyModule_ClearDict@Base @SVER@
  _PyModule_CreateInitialized@Base @SVER@
@@ -1472,6 +1477,7 @@
  _PyUnicode_CheckConsistency@Base @SVER@
  _PyUnicode_Copy@Base @SVER@
  _PyUnicode_DecodeRawUnicodeEscapeStateful@Base @SVER@
+ _PyUnicode_DecodeUnicodeEscapeInternal2@Base @SVER@
  _PyUnicode_DecodeUnicodeEscapeInternal@Base @SVER@
  _PyUnicode_DecodeUnicodeEscapeStateful@Base @SVER@
  _PyUnicode_EQ@Base @SVER@
@@ -1603,6 +1609,7 @@
  _Py_UTF8_Edit_Cost@Base @SVER@
  _Py_Uid_Converter@Base @SVER@
  _Py_UnhandledKeyboardInterrupt@Base @SVER@
+ _Py_UniversalNewlineFgetsWithSize@Base @SVER@
  _Py_VaBuildStack@Base @SVER@
  _Py_VaBuildStack_SizeT@Base @SVER@
  _Py_VaBuildValue_SizeT@Base @SVER@
@@ -1673,6 +1680,6 @@
  _Py_write@Base @SVER@
  _Py_write_noraise@Base @SVER@
 
- (optional|regex)"^_ctypes_.*@Base$" @SVER@
+#MISSING: @SVER@# (optional|regex)"^_ctypes_.*@Base$" @SVER@
 
  (optional|regex)"^PyInit_.*@Base$" @SVER@
