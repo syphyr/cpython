@@ -65,8 +65,6 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: libpython3.11-minimal (= ${binary:Version}),
   media-types | mime-support,
   ${shlibs:Depends}, ${misc:Depends}
-Breaks: python3-gdbm (<< 3.9.9-1~)
-Replaces: python3-gdbm (<< 3.9.9-1~)
 Description: Interactive high-level object-oriented language (standard library, version 3.11)
  Python is a high-level, interactive, object-oriented language. Its 3.11 version
  includes an extensive class library with lots of goodies for
@@ -238,8 +236,6 @@ Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libpython3.11-stdlib (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-Breaks: python3-gdbm-dbg (<< 3.9.9-1~)
-Replaces: python3-gdbm-dbg (<< 3.9.9-1~)
 Description: Debug Build of the Python Interpreter (version 3.11)
  The package holds two things:
  .
