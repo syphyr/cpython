@@ -329,7 +329,7 @@ PROFILE_EXCLUDES = test_compiler test_distutils test_subprocess \
 	test_threading test_threading_local test_threadsignals \
 	test_concurrent_futures test_ctypes \
 	test_dbm_dumb test_dbm_ndbm test_pydoc test_sundry \
-	test_signal test_ioctl test_gdb test_ensurepip test_venv
+	test_signal test_ioctl test_gdb test_venv
 
 # TODO: these hang/fail with new OpenSSL
 PROFILE_EXCLUDES += \
@@ -429,10 +429,9 @@ common_configure_args = \
 		--enable-loadable-sqlite-extensions \
 		--with-dbmliborder=$(dbmliborder) \
 		--with-computed-gotos \
-		--without-ensurepip \
 		--with-system-expat \
 		--with-dtrace \
-		--with-wheel-pkg-dir=/usr/share/python-wheels/ \
+		--with-ensurepip=no \
 		MKDIR_P="/bin/mkdir -p" \
 
 ifneq (,$(filter $(DEB_HOST_ARCH), avr32 or1k))
@@ -573,7 +572,7 @@ ifeq ($(on_buildd),yes)
 endif
 TESTOPTS = -j 1 -w -u$(TEST_RESOURCES) --timeout=3600
 TEST_EXCLUDES =
-TEST_EXCLUDES += test_ensurepip test_venv
+TEST_EXCLUDES += test_venv
 # Disable super slow tests
 TEST_EXCLUDES += test__xxsubinterpreters test_interpreters
 # Disable broken tests on python3.11
@@ -926,10 +925,10 @@ endif
 	rm -f $(d)/$(scriptdir)/lib2to3/*.pickle
 	rm -f $(d)/usr/share/man/man1/python3.1
 
-	if [ -d $(d)/$(scriptdir)/ensurepip/_bundled ]; then \
-	  echo "don't ship the prebuilt ensurepip/_bundled wheels."; \
-	  rm -rf $(d)/$(scriptdir)/ensurepip/_bundled; \
-	fi
+#	if [ -d $(d)/$(scriptdir)/ensurepip/_bundled ]; then \
+#	  echo "don't ship the prebuilt ensurepip/_bundled wheels."; \
+#	  rm -rf $(d)/$(scriptdir)/ensurepip/_bundled; \
+#	fi
 
 	: # cannot build it, zlib maintainer won't provide a mingw build
 	find $(d) -name 'wininst*.exe' | xargs -r rm -f
