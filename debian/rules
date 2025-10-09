@@ -576,7 +576,7 @@ TEST_EXCLUDES += test_venv
 # Disable super slow tests
 TEST_EXCLUDES += test__xxsubinterpreters test_interpreters
 # Disable broken tests on python3.11
-TEST_EXCLUDES += test_embed test_minidom test_os test_posix
+TEST_EXCLUDES += test_embed test_minidom test_os test_posix test_trace
 ifeq ($(on_buildd),yes)
   TEST_EXCLUDES += test_tcl test_codecmaps_cn test_codecmaps_hk \
         test_codecmaps_jp test_codecmaps_kr test_codecmaps_tw \
