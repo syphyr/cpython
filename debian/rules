@@ -79,7 +79,7 @@ derivative      := $(shell \
 	else echo Unknown; fi)
 
 dpkg_buildflags = DEB_BUILD_MAINT_OPTIONS="hardening=-pie $(DPKG_OPTIMIZE)" dpkg-buildflags
-dpkg_pieflags = DEB_BUILD_MAINT_OPTIONS="hardening=-pie $(DPKG_OPTIMIZE)"dpkg-buildflags
+dpkg_pieflags = DEB_BUILD_MAINT_OPTIONS="hardening=-pie $(DPKG_OPTIMIZE)" dpkg-buildflags
 ifeq (,$(filter $(distrelease),stretch buster bullseye trusty xenial bionic focal impish))
   with_nopie := yes
   dpkg_pieflags = DEB_BUILD_MAINT_OPTIONS="hardening=-pie $(DPKG_OPTIMIZE)" dpkg-buildflags
