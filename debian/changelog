@@ -1,3 +1,9 @@
+python3.11 (3.11.14) bionic; urgency=medium
+
+  * Upstream release
+
+ -- syphyr <syphyr@gmail.com>  Sat, 11 Oct 2025 22:51:36 +0200
+
 python3.11 (3.11.13-1~18.04) bionic; urgency=medium
 
   * Backport 3.11 to 18.04 LTS.
