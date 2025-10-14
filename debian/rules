@@ -922,10 +922,10 @@ endif
 	  mv $$i $(d)/$(scriptdir)/lib-dynload/$$d; \
 	done
 
-	mkdir -p $(d)/usr/lib/python3
-	mv $(d)/usr/lib/python$(VER)/site-packages \
-		$(d)/usr/lib/python3/dist-packages
-	rm -f $(d)/usr/lib/python3/dist-packages/README*
+#	mkdir -p $(d)/usr/lib/python3
+#	mv $(d)/usr/lib/python$(VER)/site-packages \
+#		$(d)/usr/lib/python3/dist-packages
+#	rm -f $(d)/usr/lib/python3/dist-packages/README*
 
 	: # remove files, which are not packaged
 	rm -rf $(d)/usr/lib/python$(VER)/ctypes/macholib
@@ -1212,7 +1212,7 @@ endif
 		$(d_lbase)/$(scriptdir)
 
 	: # The rest goes into $(p_base)
-	mkdir -p $(d)/usr/lib/python3/dist-packages
+#	mkdir -p $(d)/usr/lib/python3/dist-packages
 	(cd $(d) && tar cf - .) | (cd $(d_base) && tar xpf -)
 	rm -f $(d_base)/usr/bin/python
 
