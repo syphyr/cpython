@@ -384,8 +384,26 @@ class EnvBuilder:
 
     def _setup_pip(self, context):
         """Installs or upgrades pip in a virtual environment"""
-        self._call_new_python(context, '-m', 'ensurepip', '--upgrade',
-                              '--default-pip', stderr=subprocess.STDOUT)
+        try:
+            self._call_new_python(context, '-m', 'ensurepip', '--upgrade',
+                                  '--default-pip', stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError as err:
+            stdlib = sysconfig.get_path('stdlib')
+            if not os.path.exists(f'{stdlib}/ensurepip/__main__.py'):
+                print("""\
+The virtual environment was not created successfully because ensurepip is not
+available.  On Debian/Ubuntu systems, you need to install the python3-venv
+package using the following command.
+
+    apt install python{}-venv
+
+You may need to use sudo with that command.  After installing the python3-venv
+package, recreate your virtual environment.
+
+Failing command: {}
+""".format(sysconfig.get_python_version(), context.env_exec_cmd))
+                sys.exit(1)
+            raise
 
     def setup_scripts(self, context):
         """
