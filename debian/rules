@@ -1207,10 +1207,6 @@ endif
 	dh_movefiles -p$(p_lbase) \
 		usr/lib/python$(VER)
 
-	# Mark the interpreter as being PEP668 EXTERNALLY-MANAGED
-	install -m 644 debian/EXTERNALLY-MANAGED \
-		$(d_lbase)/$(scriptdir)
-
 	: # The rest goes into $(p_base)
 #	mkdir -p $(d)/usr/lib/python3/dist-packages
 	(cd $(d) && tar cf - .) | (cd $(d_base) && tar xpf -)
