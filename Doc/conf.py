@@ -309,6 +309,10 @@ gettext_additional_targets = [
     'literal-block',
 ]
 
+# Allow to build with Sphinx >= 3.2
+c_allow_pre_v3 = True
+c_warn_on_allowed_pre_v3 = False
+
 # Options for HTML output
 # -----------------------
 
