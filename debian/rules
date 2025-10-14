@@ -83,7 +83,7 @@ derivative      := $(shell \
 # we inject our own lto flags
 DPKG_OPTIMIZE = optimize=-lto
 dpkg_buildflags = DEB_BUILD_MAINT_OPTIONS="hardening=-pie $(DPKG_OPTIMIZE)" dpkg-buildflags
-dpkg_pieflags = DEB_BUILD_MAINT_OPTIONS="hardening=-pie $(DPKG_OPTIMIZE)"dpkg-buildflags
+dpkg_pieflags = DEB_BUILD_MAINT_OPTIONS="hardening=-pie $(DPKG_OPTIMIZE)" dpkg-buildflags
 ifeq (,$(filter $(distrelease),stretch buster bullseye trusty xenial bionic focal impish))
   with_nopie := yes
   dpkg_pieflags = DEB_BUILD_MAINT_OPTIONS="hardening=-pie $(DPKG_OPTIMIZE)" dpkg-buildflags
@@ -104,7 +104,7 @@ ifneq (,$(filter valgrind, $(shell dpkg-query --show -f '$${Depends}\n' valgrind
 endif
 
 VER=3.12
-SVER=3.12.1
+SVER=3.12.12
 NVER=3.13
 PVER=python$(VER)
 EXT_VER=$(subst .,,$(VER))
@@ -249,6 +249,7 @@ endif
 
 sysconfig_substflags = \
 	$(if $(with_lto),$(foreach i,-flto=auto -flto -fuse-linker-plugin -ffat-lto-objects,-e 's/$(i)//g')) \
+	-e 's,gcc-8,gcc,;s,g++-8,g++,' \
 	-e '/^OPT/s,-O3,-O2,' \
 	-e 's/-O3/-O2/g' \
 	-e 's/-fprofile-use *-fprofile-correction//g' \
@@ -335,7 +336,7 @@ PROFILE_EXCLUDES = test_compiler test_distutils test_subprocess \
 	test_threading test_threading_local test_threadsignals \
 	test_concurrent_futures test_ctypes \
 	test_dbm_dumb test_dbm_ndbm test_pydoc test_sundry \
-	test_signal test_ioctl test_gdb test_ensurepip test_venv
+	test_signal test_ioctl test_gdb test_venv
 
 # TODO: these hang/fail with new OpenSSL
 PROFILE_EXCLUDES += \
@@ -372,11 +373,10 @@ common_configure_args = \
 		--enable-loadable-sqlite-extensions \
 		--with-dbmliborder=$(dbmliborder) \
 		--with-computed-gotos \
-		--without-ensurepip \
 		--with-system-expat \
 		--with-dtrace \
 		--with-ssl-default-suites=openssl \
-		--with-wheel-pkg-dir=/usr/share/python-wheels/ \
+		--with-ensurepip=no \
 		MKDIR_P="/bin/mkdir -p" \
 
 # FIXME, only temporaray
@@ -579,7 +579,7 @@ ifeq ($(on_buildd),yes)
 endif
 TESTOPTS = -j 1 -w -u$(TEST_RESOURCES) --timeout=3600
 TEST_EXCLUDES =
-TEST_EXCLUDES += test_ensurepip test_venv
+TEST_EXCLUDES += test_venv
 ifeq ($(on_buildd),yes)
   TEST_EXCLUDES += test_tcl test_codecmaps_cn test_codecmaps_hk \
         test_codecmaps_jp test_codecmaps_kr test_codecmaps_tw \
@@ -930,10 +930,10 @@ endif
 	rm -f $(d)/$(scriptdir)/lib2to3/*.pickle
 	rm -f $(d)/usr/share/man/man1/python3.1
 
-	if [ -d $(d)/$(scriptdir)/ensurepip/_bundled ]; then \
-	  echo "don't ship the prebuilt ensurepip/_bundled wheels."; \
-	  rm -rf $(d)/$(scriptdir)/ensurepip/_bundled; \
-	fi
+#	if [ -d $(d)/$(scriptdir)/ensurepip/_bundled ]; then \
+#	  echo "don't ship the prebuilt ensurepip/_bundled wheels."; \
+#	  rm -rf $(d)/$(scriptdir)/ensurepip/_bundled; \
+#	fi
 
 	: # cannot build it, zlib maintainer won't provide a mingw build
 	find $(d) -name 'wininst*.exe' | xargs -r rm -f
@@ -1138,10 +1138,12 @@ endif
 	rm -rf $(d)/usr/lib/python$(VER)/tkinter
 
 	: # lib2to3 shipped in python3-lib2to3
+#	rm -rf \
+#		$(d)/usr/bin/2to3-$(VER) \
+#		$(d)/usr/share/man/man1/2to3-$(VER).1 \
+#		$(d)/usr/lib/python$(VER)/lib2to3
 	rm -rf \
-		$(d)/usr/bin/2to3-$(VER) \
-		$(d)/usr/share/man/man1/2to3-$(VER).1 \
-		$(d)/usr/lib/python$(VER)/lib2to3
+		$(d)/usr/lib/python$(VER)/lib2to3/tests
 
 	: # Move the demos and tools into $(p_exam)'s doc directory
 	dh_installdirs -p$(p_exam) \

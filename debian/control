@@ -7,23 +7,21 @@ Uploaders: Stefano Rivera <stefanor@debian.org>
 Build-Depends: debhelper (>= 11), dpkg-dev (>= 1.17.11),
   quilt, autoconf,
   lsb-release, sharutils,
-  libreadline-dev | libeditreadline-dev, libncurses-dev, 
+  libreadline-dev | libeditreadline-dev, libncursesw5-dev (>= 5.3),
   zlib1g-dev, libbz2-dev, liblzma-dev,
   libgdbm-dev, libdb-dev,
 #  tk-dev, blt-dev (>= 2.4z),
   libssl-dev,
   libexpat1-dev,
   libbluetooth-dev [linux-any] <!pkg.python3.12.nobluetooth>,
-  locales-all,
-  libnsl-dev,
+  locales [!armel !avr32 !hppa !ia64 !mipsel],
   libsqlite3-dev, libffi-dev (>= 3.0.5) [!or1k],
   libgpm2 [linux-any],
   media-types | mime-support, netbase, bzip2, time, python3:any, python3.12:any <cross>,
   net-tools,
 #  xvfb <!nocheck>, xauth <!nocheck>, tzdata <!nocheck>,
   systemtap-sdt-dev [!hurd-amd64 !hurd-i386],
-  valgrind-if-available,
-Build-Depends-Indep: python3-sphinx, python3-docs-theme, texinfo
+Build-Depends-Indep: python3-sphinx, texinfo
 Standards-Version: 4.6.2
 Vcs-Browser: https://salsa.debian.org/cpython-team/python3
 Vcs-Git: https://salsa.debian.org/cpython-team/python3.git
@@ -52,8 +50,6 @@ Architecture: any
 Multi-Arch: allowed
 Priority: optional
 Depends: python3.12 (= ${binary:Version}),
- python3-pip-whl (>= 22.2),
- python3-setuptools-whl,
  ${shlibs:Depends}, ${misc:Depends},
 Breaks: python3-pip (<< 1.5.6-4)
 Description: Interactive high-level object-oriented language (pyvenv binary, version 3.12)
@@ -71,8 +67,8 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: libpython3.12-minimal (= ${binary:Version}),
   media-types | mime-support, netbase, tzdata,
   ${shlibs:Depends}, ${misc:Depends}
-Breaks: python3-gdbm (<< 3.9.9-1~), libpython3.12-testsuite (<< 3.12.0-3~)
-Replaces: python3-gdbm (<< 3.9.9-1~), libpython3.12-testsuite (<< 3.12.0-3~)
+Breaks: libpython3.12-testsuite (<< 3.12.0-3~)
+Replaces: libpython3.12-testsuite (<< 3.12.0-3~)
 Description: Interactive high-level object-oriented language (standard library, version 3.12)
  Python is a high-level, interactive, object-oriented language. Its 3.12 version
  includes an extensive class library with lots of goodies for
@@ -249,8 +245,8 @@ Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libpython3.12-stdlib (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-Breaks: libpython3.12-dbg (<< ${source:Version}), python3-gdbm-dbg (<< 3.9.9-1~)
-Replaces: libpython3.12-dbg, python3-gdbm-dbg (<< 3.9.9-1~)
+Breaks: libpython3.12-dbg (<< ${source:Version})
+Replaces: libpython3.12-dbg
 Description: Debug Build of the Python Interpreter (version 3.12)
  The package holds two things:
  .
@@ -266,9 +262,6 @@ Depends: python3.12 (= ${binary:Version}),
   libpython3.12-testsuite,
   python3.12-venv (= ${binary:Version}),
   idle-python3.12,
-  python3.12-gdbm,
-  python3.12-lib2to3,
-  python3.12-tk,
   ca-certificates,
   ${shlibs:Depends}, ${misc:Depends}
 Recommends: python3.12-doc, python3.12-examples,
