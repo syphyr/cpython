@@ -325,16 +325,16 @@ class HelperFunctionsTests(unittest.TestCase):
         if os.sep == '/':
             # OS X, Linux, FreeBSD, etc
             if sys.platlibdir != "lib":
-                self.assertEqual(len(dirs), 2)
-                wanted = os.path.join('xoxo', sys.platlibdir,
+                self.assertEqual(len(dirs), 3)
+                wanted = os.path.join('xoxo', 'local', 'lib',
                                       'python%d.%d' % sys.version_info[:2],
-                                      'site-packages')
+                                      'dist-packages')
                 self.assertEqual(dirs[0], wanted)
             else:
-                self.assertEqual(len(dirs), 1)
+                self.assertEqual(len(dirs), 3)
             wanted = os.path.join('xoxo', 'lib',
                                   'python%d.%d' % sys.version_info[:2],
-                                  'site-packages')
+                                  'dist-packages')
             self.assertEqual(dirs[-1], wanted)
         else:
             # other platforms
