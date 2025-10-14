@@ -5840,10 +5840,15 @@ AC_CACHE_CHECK([whether POSIX semaphores are enabled], [ac_cv_posix_semaphores_e
   [ac_cv_posix_semaphores_enabled=yes])
 )
 AS_VAR_IF([ac_cv_posix_semaphores_enabled], [no], [
-  AC_DEFINE(
-    [POSIX_SEMAPHORES_NOT_ENABLED], [1],
-    [Define if POSIX semaphores aren't enabled on your system]
-  )
+  case $ac_sys_system in
+    Linux*) # assume yes, see https://launchpad.net/bugs/630511
+      ;;
+    *)
+      AC_DEFINE(
+        [POSIX_SEMAPHORES_NOT_ENABLED], [1],
+        [Define if POSIX semaphores aren't enabled on your system]
+      )
+  esac
 ])
 
 dnl Multiprocessing check for broken sem_getvalue
