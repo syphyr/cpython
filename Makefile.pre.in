@@ -2345,8 +2345,10 @@ libinstall:	all $(srcdir)/Modules/xxmodule.c
 			esac; \
 		done; \
 	done
-	$(INSTALL_DATA) `cat pybuilddir.txt`/_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH).py \
-		$(DESTDIR)$(LIBDEST); \
+	$(INSTALL_DATA) `cat pybuilddir.txt`/_sysconfigdata_$(ABIFLAGS)_$(MULTIARCH).py \
+		$(DESTDIR)$(LIBDEST)
+	$(LN) -s _sysconfigdata_$(ABIFLAGS)_$(MULTIARCH).py \
+		$(DESTDIR)$(LIBDEST)/_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH).py
 	$(INSTALL_DATA) $(srcdir)/LICENSE $(DESTDIR)$(LIBDEST)/LICENSE.txt
 	@ # Build PYC files for the 3 optimization levels (0, 1, 2)
 	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
