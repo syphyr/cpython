@@ -717,6 +717,12 @@ def _init_config_vars():
         # the init-function.
         _CONFIG_VARS['userbase'] = _getuserbase()
 
+    multiarch = get_config_var('MULTIARCH')
+    if multiarch:
+        _CONFIG_VARS['multiarchsubdir'] = '/' + multiarch
+    else:
+        _CONFIG_VARS['multiarchsubdir'] = ''
+
     # Always convert srcdir to an absolute path
     srcdir = _CONFIG_VARS.get('srcdir', _PROJECT_BASE)
     if os.name == 'posix':
