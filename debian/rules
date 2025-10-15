@@ -73,8 +73,10 @@ ifneq (,$(filter parallel=%,$(subst $(COMMA), ,$(DEB_BUILD_OPTIONS))))
   NJOBS := -j $(subst parallel=,,$(filter parallel=%,$(subst $(COMMA), ,$(DEB_BUILD_OPTIONS))))
 endif
 
-distribution := $(shell lsb_release -is)
-distrelease  := $(shell lsb_release -cs)
+# Fix for broken lsb_release
+distribution := Ubuntu
+distrelease  := bionic
+
 derivative      := $(shell \
 	if dpkg-vendor --derives-from Ubuntu; then echo Ubuntu; \
 	elif dpkg-vendor --derives-from Debian; then echo Debian; \
