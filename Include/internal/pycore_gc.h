@@ -19,7 +19,7 @@ typedef struct {
     // Pointer to previous object in the list.
     // Lowest two bits are used for flags documented later.
     uintptr_t _gc_prev;
-} PyGC_Head;
+} PyGC_Head Py_ALIGNED(sizeof(uintptr_t));
 
 #define _PyGC_Head_UNUSED PyGC_Head
 
