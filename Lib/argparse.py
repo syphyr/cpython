@@ -2700,8 +2700,12 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
 
             if self.suggest_on_error and isinstance(value, str):
                 if all(isinstance(choice, str) for choice in action.choices):
-                    import difflib
-                    suggestions = difflib.get_close_matches(value, action.choices, 1)
+                    try:
+                        import difflib
+                    except ImportError:
+                        suggestions = None
+                    else:
+                        suggestions = difflib.get_close_matches(value, action.choices, 1)
                     if suggestions:
                         args['closest'] = suggestions[0]
                         msg = _('invalid choice: %(value)r, maybe you meant %(closest)r? '
