@@ -89,7 +89,18 @@ import os as _os
 import re as _re
 import sys as _sys
 
-from gettext import gettext as _, ngettext
+try:
+    from gettext import gettext as _, ngettext
+except ImportError:
+    def gettext(message):
+        return message
+    _ = gettext  # avoid the definition above looking like a translated string
+    del gettext
+    def ngettext(singular,plural,n):
+        if n == 1:
+            return singular
+        else:
+            return plural
 
 SUPPRESS = '==SUPPRESS=='
 
