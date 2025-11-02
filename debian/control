@@ -257,8 +257,6 @@ Depends: python3.13 (= ${binary:Version}),
   libpython3.13-testsuite,
   python3.13-venv (= ${binary:Version}),
   idle-python3.13,
-  python3.13-gdbm,
-  python3.13-tk,
   ca-certificates,
   ${shlibs:Depends}, ${misc:Depends}
 Recommends: python3.13-doc, python3.13-examples,
