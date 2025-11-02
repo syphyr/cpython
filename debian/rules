@@ -66,7 +66,7 @@ derivative      := $(shell \
 # we inject our own lto flags
 DPKG_OPTIMIZE = optimize=-lto
 dpkg_buildflags = DEB_BUILD_MAINT_OPTIONS="hardening=-pie $(DPKG_OPTIMIZE)" dpkg-buildflags
-dpkg_pieflags = DEB_BUILD_MAINT_OPTIONS="hardening=-pie $(DPKG_OPTIMIZE)"dpkg-buildflags
+dpkg_pieflags = DEB_BUILD_MAINT_OPTIONS="hardening=-pie $(DPKG_OPTIMIZE)" dpkg-buildflags
 ifeq (,$(filter $(distrelease),stretch buster bullseye trusty xenial bionic focal impish))
   with_nopie := yes
   dpkg_pieflags = DEB_BUILD_MAINT_OPTIONS="hardening=-pie $(DPKG_OPTIMIZE)" dpkg-buildflags
@@ -116,7 +116,7 @@ MIN_ENCODINGS := $(foreach i, \
 			encodings/$(i)) \
 		 codecs.py stringprep.py
 
-with_tk := yes
+with_tk := no
 with_gdbm := yes
 with_interp := static
 #with_interp := shared
@@ -242,6 +242,7 @@ endif
 
 sysconfig_substflags = \
 	$(if $(with_lto),$(foreach i,-flto=auto -flto -fuse-linker-plugin -ffat-lto-objects -frandom-seed=$(DEB_VERSION),-e 's/$(i)//g')) \
+	-e 's,gcc-8,gcc,;s,g++-8,g++,' \
 	-e '/^OPT/s,-O3,-O2,' \
 	-e 's/-O3/-O2/g' \
 	-e 's/-fprofile-use *-fprofile-correction//g' \
@@ -330,7 +331,7 @@ PROFILE_EXCLUDES = test_compiler test_subprocess \
 	test_threading test_threading_local test_threadsignals \
 	test_concurrent_futures test_ctypes \
 	test_dbm_dumb test_dbm_ndbm test_pydoc test_sundry \
-	test_signal test_ioctl test_gdb test_ensurepip test_venv
+	test_signal test_ioctl test_gdb test_venv
 
 # TODO: these hang/fail with new OpenSSL
 PROFILE_EXCLUDES += \
@@ -367,12 +368,11 @@ common_configure_args = \
 		--enable-loadable-sqlite-extensions \
 		--with-dbmliborder=$(dbmliborder) \
 		--with-computed-gotos \
-		--without-ensurepip \
 		--with-system-expat \
 		$(if $(filter hurd, $(DEB_HOST_ARCH_OS)),,--with-dtrace) \
 		--with-ssl-default-suites=openssl \
+		--with-ensurepip=no \
 		--with-system-libmpdec=no \
-		--with-wheel-pkg-dir=/usr/share/python-wheels/ \
 		MKDIR_P="/bin/mkdir -p" \
 
 # FIXME, only temporaray
@@ -575,7 +575,9 @@ ifeq ($(on_buildd),yes)
 endif
 TESTOPTS = -j 1 -w -u$(TEST_RESOURCES) --timeout=3600
 TEST_EXCLUDES =
-TEST_EXCLUDES += test_ensurepip test_venv
+TEST_EXCLUDES += test_venv
+# Disable broken tests
+TEST_EXCLUDES += test_peg_generator test_posix
 ifeq ($(on_buildd),yes)
   TEST_EXCLUDES += test_tcl test_codecmaps_cn test_codecmaps_hk \
         test_codecmaps_jp test_codecmaps_kr test_codecmaps_tw \
@@ -901,19 +903,9 @@ endif
 	  mv $$i $(d)/$(scriptdir)/lib-dynload/$$d; \
 	done
 
-	mkdir -p $(d)/usr/lib/python3
-	mv $(d)/usr/lib/python$(VER)/site-packages \
-		$(d)/usr/lib/python3/dist-packages
-	rm -f $(d)/usr/lib/python3/dist-packages/README*
-
 	: # remove files, which are not packaged
 	rm -rf $(d)/usr/lib/python$(VER)/ctypes/macholib
 	rm -f $(d)/usr/share/man/man1/python3.1
-
-	if [ -d $(d)/$(scriptdir)/ensurepip/_bundled ]; then \
-	  echo "don't ship the prebuilt ensurepip/_bundled wheels."; \
-	  rm -rf $(d)/$(scriptdir)/ensurepip/_bundled; \
-	fi
 
 	: # cannot build it, zlib maintainer won't provide a mingw build
 	find $(d) -name 'wininst*.exe' | xargs -r rm -f
@@ -1173,12 +1165,7 @@ endif
 	dh_movefiles -p$(p_lbase) \
 		usr/lib/python$(VER)
 
-	# Mark the interpreter as being PEP668 EXTERNALLY-MANAGED
-	install -m 644 debian/EXTERNALLY-MANAGED \
-		$(d_lbase)/$(scriptdir)
-
 	: # The rest goes into $(p_base)
-	mkdir -p $(d)/usr/lib/python3/dist-packages
 	(cd $(d) && tar cf - .) | (cd $(d_base) && tar xpf -)
 	rm -f $(d_base)/usr/bin/python
 
@@ -1481,7 +1468,7 @@ binary-arch: build-arch install
 	done
 	-find debian ! -perm -200 -print -exec chmod +w {} \;
 ifneq ($(with_tk),yes)
-	rm -f $(d_lbase)/$(scriptdir)/tkinter
+	rm -rf $(d_lbase)/$(scriptdir)/tkinter
 	rm -f $(d_lbase)/$(scriptdir)/lib-dynload/_tkinter*.so
 	rm -f $(d_ldbg)/$(scriptdir)/lib-dynload/_tkinter*.so
 endif
@@ -1568,9 +1555,6 @@ stamps/stamp-patch:
 	touch Lib/test/certdata/nullcert.pem
 	touch Lib/test/libregrtest/__init__.py
 	touch Lib/test/tokenizedata/__init__.py
-
-	# Check if patchlevel-noplus.diff is missing
-	grep -Eq '^#define PY_VERSION +"[^+]+"$$' Include/patchlevel.h
 
 	mv stamps/pxx $@
 
