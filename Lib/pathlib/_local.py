@@ -1,5 +1,4 @@
 import io
-import ntpath
 import operator
 import os
 import posixpath
@@ -115,6 +114,7 @@ class PurePath(PurePathBase):
         return object.__new__(cls)
 
     def __init__(self, *args):
+        import ntpath
         paths = []
         for arg in args:
             if isinstance(arg, PurePath):
@@ -417,6 +417,7 @@ class PurePath(PurePathBase):
     def is_reserved(self):
         """Return True if the path contains one of the special names reserved
         by the system, if any."""
+        import ntpath
         msg = ("pathlib.PurePath.is_reserved() is deprecated and scheduled "
                "for removal in Python 3.15. Use os.path.isreserved() to "
                "detect reserved paths on Windows.")
@@ -475,6 +476,7 @@ class PureWindowsPath(PurePath):
     On a Windows system, instantiating a PurePath should return this object.
     However, you can also instantiate it directly on any system.
     """
+    import ntpath
     parser = ntpath
     __slots__ = ()
 
