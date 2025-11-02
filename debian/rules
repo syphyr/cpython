@@ -117,7 +117,7 @@ MIN_ENCODINGS := $(foreach i, \
 		 codecs.py stringprep.py
 
 with_tk := no
-with_gdbm := no
+with_gdbm := yes
 with_interp := static
 #with_interp := shared
 
