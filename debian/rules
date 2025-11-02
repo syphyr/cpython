@@ -1556,9 +1556,6 @@ stamps/stamp-patch:
 	touch Lib/test/libregrtest/__init__.py
 	touch Lib/test/tokenizedata/__init__.py
 
-	# Check if patchlevel-noplus.diff is missing
-	grep -Eq '^#define PY_VERSION +"[^+]+"$$' Include/patchlevel.h
-
 	mv stamps/pxx $@
 
 reverse-patches: unpatch
