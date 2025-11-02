@@ -98,7 +98,10 @@ Behind the scenes there are some features included with possible
 extensions in mind. These will be commented and documented elsewhere.
 """
 
-import tkinter as TK
+try:
+    import tkinter as TK
+except ImportError as msg:
+    raise ImportError(str(msg) + ', please install the python3-tk package')
 import types
 import math
 import time
