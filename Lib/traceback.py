@@ -6,7 +6,6 @@ import linecache
 import sys
 import textwrap
 import warnings
-import codeop
 import keyword
 import tokenize
 import io
@@ -1278,6 +1277,7 @@ class TracebackException:
 
     def _find_keyword_typos(self):
         assert self._is_syntax_error
+        import codeop
         try:
             import _suggestions
         except ImportError:
