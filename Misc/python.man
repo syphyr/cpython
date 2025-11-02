@@ -1,7 +1,7 @@
-.TH PYTHON "1"
+.TH PYTHON 1
 
 .\" To view this file while editing, run it through groff:
-.\"   groff -Tascii -man python.man | less
+.\"   groff -Tascii -man -ww python.man |& less
 
 .SH NAME
 python \- an interpreted, interactive, object-oriented programming language
@@ -162,17 +162,16 @@ compilation options).
 Ignore environment variables like PYTHONPATH and PYTHONHOME that modify
 the behavior of the interpreter.
 .TP
-.B \-h ", " \-? ", "\-\-help
+.BR \-h ", " \-? ", " \-\-help
 Prints the usage for the interpreter executable and exits.
 .TP
-.B "\-\-help\-env"
+.B \-\-help\-env
 Prints help about Python-specific environment variables and exits.
 .TP
-.B "\-\-help\-xoptions"
+.B \-\-help\-xoptions
 Prints help about implementation-specific \fB\-X\fP options and exits.
 .TP
-.TP
-.B "\-\-help\-all"
+.B \-\-help\-all
 Prints complete usage information and exits.
 .TP
 .B \-i
@@ -183,9 +182,11 @@ useful to inspect global variables or a stack trace when a script
 raises an exception.
 .TP
 .B \-I
-Run Python in isolated mode. This also implies \fB\-E\fP, \fB\-P\fP and \fB\-s\fP. In
-isolated mode sys.path contains neither the script's directory nor the user's
-site\-packages directory. All PYTHON* environment variables are ignored, too.
+Run Python in isolated mode.
+This also implies \fB\-E\fP, \fB\-P\fP and \fB\-s\fP.
+In isolated mode sys.path contains neither the script's directory nor the
+user's site\-packages directory.
+All PYTHON* environment variables are ignored, too.
 Further restrictions may be imposed to prevent the user from injecting
 malicious code.
 .TP
@@ -208,8 +209,8 @@ compiled (bytecode) files by adding .opt-2 before the .pyc extension.
 .TP
 .B \-P
 Don't automatically prepend a potentially unsafe path to \fBsys.path\fP such
-as the current directory, the script's directory or an empty string. See also the
-\fBPYTHONSAFEPATH\fP environment variable.
+as the current directory, the script's directory or an empty string.
+See also the \fBPYTHONSAFEPATH\fP environment variable.
 .TP
 .B \-q
 Do not print the version and copyright messages. These messages are
@@ -243,7 +244,7 @@ twice, print a message for each file that is checked for when
 searching for a module.  Also provides information on module cleanup
 at exit.
 .TP
-.B \-V ", " \-\-version
+.BR \-V ", " \-\-version
 Prints the Python version number of the executable and exits.  When given
 twice, print more information about the build.
 
@@ -256,22 +257,24 @@ to
 The simplest settings apply a particular action unconditionally to all warnings
 emitted by a process (even those that are otherwise ignored by default):
 
-  -Wdefault  # Warn once per call location
-  -Werror    # Convert to exceptions
-  -Walways   # Warn every time
-  -Wall      # Same as -Walways
-  -Wmodule   # Warn once per calling module
-  -Wonce     # Warn once per Python process
-  -Wignore   # Never warn
+.nf
+  \-Wdefault  # Warn once per call location
+  \-Werror    # Convert to exceptions
+  \-Walways   # Warn every time
+  \-Wall      # Same as \-Walways
+  \-Wmodule   # Warn once per calling module
+  \-Wonce     # Warn once per Python process
+  \-Wignore   # Never warn
+.fi
 
 The action names can be abbreviated as desired and the interpreter will resolve
 them to the appropriate action name. For example,
 .B \-Wi
 is the same as
-.B \-Wignore .
+.BR \-Wignore .
 
 The full form of argument is:
-.IB action:message:category:module:lineno
+.IB action : message : category : module : lineno
 
 Empty fields match all values; trailing empty fields may be omitted. For
 example
@@ -320,7 +323,7 @@ a regular expression on the warning message.
 .TP
 .BI "\-X " option
 Set implementation-specific option. The following options are available:
-
+.nf
     \fB\-X cpu_count=\fIN\fR: override the return value of \fIos.cpu_count()\fR;
        \fB\-X cpu_count=default\fR cancels overriding; also \fBPYTHON_CPU_COUNT\fI
 
@@ -430,7 +433,7 @@ is an empty string; if
 is used,
 .I sys.argv[0]
 contains the string
-.I '\-c'.
+.RI ' \-c '.
 Note that options interpreted by the Python interpreter itself
 are not placed in
 .IR sys.argv .
@@ -557,8 +560,8 @@ purpose is to allow repeatable hashing, such as for selftests for the
 interpreter itself, or to allow a cluster of python processes to share hash
 values.
 
-The integer must be a decimal number in the range [0,4294967295].  Specifying
-the value 0 will disable hash randomization.
+The integer must be a decimal number in the range [0,4\|294\|967\|295].
+Specifying the value 0 will disable hash randomization.
 .IP PYTHONHOME
 Change the location of the standard Python libraries.  By default, the
 libraries are searched in ${prefix}/lib/python<version> and
@@ -599,7 +602,7 @@ and
 .IR pymalloc_debug .
 .IP
 When Python is compiled in debug mode, the default is
-.IR pymalloc_debug
+.I pymalloc_debug
 and the debug hooks are automatically used. Otherwise, the default is
 .IR pymalloc .
 .IP PYTHONMALLOCSTATS
@@ -679,14 +682,14 @@ Python memory allocations using the tracemalloc module.
 .IP
 The value of the variable is the maximum number of frames stored in a
 traceback of a trace. For example,
-.IB PYTHONTRACEMALLOC=1
+.B PYTHONTRACEMALLOC=1
 stores only the most recent frame.
 .IP PYTHONUNBUFFERED
 If this is set to a non-empty string it is equivalent to specifying
 the \fB\-u\fP option.
 .IP PYTHONUSERBASE
 Defines the user base directory, which is used to compute the path of the user
-.IR site\-packages
+.I site\-packages
 directory and installation paths for
 .IR "python \-m pip install \-\-user" .
 .IP PYTHONUTF8
