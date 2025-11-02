@@ -1468,7 +1468,7 @@ binary-arch: build-arch install
 	done
 	-find debian ! -perm -200 -print -exec chmod +w {} \;
 ifneq ($(with_tk),yes)
-	rm -f $(d_lbase)/$(scriptdir)/tkinter
+	rm -rf $(d_lbase)/$(scriptdir)/tkinter
 	rm -f $(d_lbase)/$(scriptdir)/lib-dynload/_tkinter*.so
 	rm -f $(d_ldbg)/$(scriptdir)/lib-dynload/_tkinter*.so
 endif
