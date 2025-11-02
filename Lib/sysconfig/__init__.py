@@ -510,6 +510,12 @@ def _init_config_vars():
     # e.g., 't' for free-threaded or '' for default build
     _CONFIG_VARS['abi_thread'] = 't' if _CONFIG_VARS.get('Py_GIL_DISABLED') else ''
 
+    multiarch = get_config_var('MULTIARCH')
+    if multiarch:
+        _CONFIG_VARS['multiarchsubdir'] = '/' + multiarch
+    else:
+        _CONFIG_VARS['multiarchsubdir'] = ''
+
     # Always convert srcdir to an absolute path
     srcdir = _CONFIG_VARS.get('srcdir', _PROJECT_BASE)
     if os.name == 'posix':
