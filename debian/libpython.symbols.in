@@ -1775,6 +1775,7 @@
  _Py_HashSecret@Base @SVER@
  _Py_IncRef@Base @SVER@
  _Py_InitCleanup@Base @SVER@
+ _Py_InitDumpStack@Base @SVER@
  _Py_InitializeRecursionLimits@Base @SVER@
  _Py_IsInterpreterFinalizing@Base @SVER@
  _Py_IsValidFD@Base @SVER@
