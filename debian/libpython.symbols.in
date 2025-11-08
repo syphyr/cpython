@@ -1254,6 +1254,7 @@
  _PyBytesWriter_Prepare@Base @SVER@
  _PyBytesWriter_Resize@Base @SVER@
  _PyBytesWriter_WriteBytes@Base @SVER@
+ _PyBytes_DecodeEscape2@Base @SVER@
  _PyBytes_DecodeEscape@Base @SVER@
  _PyBytes_Find@Base @SVER@
  _PyBytes_Join@Base @SVER@
@@ -1507,6 +1508,10 @@
  _PyStructSequence_NewType@Base @SVER@
  _PySuper_Lookup@Base @SVER@
  _PySys_GetAttr@Base @SVER@
+ _PySys_GetOptionalAttr@Base @SVER@
+ _PySys_GetOptionalAttrString@Base @SVER@
+ _PySys_GetRequiredAttr@Base @SVER@
+ _PySys_GetRequiredAttrString@Base @SVER@
  _PySys_GetSizeOf@Base @SVER@
  _PyThreadState_GetCurrent@Base @SVER@
  _PyThreadState_GetDict@Base @SVER@
@@ -1545,6 +1550,7 @@
  _PyTuple_Resize@Base @SVER@
  _PyType_GetDict@Base @SVER@
  _PyType_GetModuleByDef2@Base @SVER@
+ _PyType_GetModuleByDef3@Base @SVER@
  _PyType_Lookup@Base @SVER@
  _PyType_LookupRef@Base @SVER@
  _PyType_Name@Base @SVER@
@@ -1562,6 +1568,7 @@
  _PyUnicode_AsUTF8String@Base @SVER@
  _PyUnicode_CheckConsistency@Base @SVER@
  _PyUnicode_Copy@Base @SVER@
+ _PyUnicode_DecodeUnicodeEscapeInternal2@Base @SVER@
  _PyUnicode_DecodeUnicodeEscapeInternal@Base @SVER@
  _PyUnicode_EncodeUTF16@Base @SVER@
  _PyUnicode_EncodeUTF32@Base @SVER@
