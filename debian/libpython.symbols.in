@@ -1187,6 +1187,8 @@
  PyUnstable_PerfMapState_Init@Base @SVER@
  PyUnstable_PerfTrampoline_CompileCode@Base @SVER@
  PyUnstable_PerfTrampoline_SetPersistAfterFork@Base @SVER@
+ PyUnstable_ThreadState_ResetStackProtection@Base @SVER@
+ PyUnstable_ThreadState_SetStackProtection@Base @SVER@
  PyUnstable_TryIncRef@Base @SVER@
  PyUnstable_Type_AssignVersionTag@Base @SVER@
  PyUnstable_WritePerfMapEntry@Base @SVER@
@@ -1426,6 +1428,7 @@
  _PyEval_MatchClass@Base @SVER@
  _PyEval_MatchKeys@Base @SVER@
  _PyEval_MonitorRaise@Base @SVER@
+ _PyEval_NoToolsForUnwind@Base @SVER@
  _PyEval_SetProfile@Base @SVER@
  _PyEval_SliceIndex@Base @SVER@
  _PyEval_SliceIndexNotNone@Base @SVER@
@@ -1657,6 +1660,7 @@
  _PyTuple_FromArraySteal@Base @SVER@
  _PyTuple_FromStackRefStealOnSuccess@Base @SVER@
  _PyTuple_Resize@Base @SVER@
+ _PyType_GetBaseByToken_Borrow@Base @SVER@
  _PyType_GetDict@Base @SVER@
  _PyType_GetSlotWrapperNames@Base @SVER@
  _PyType_Lookup@Base @SVER@
