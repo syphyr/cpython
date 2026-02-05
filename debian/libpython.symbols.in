@@ -1343,6 +1343,7 @@
  _PyEval_MatchClass@Base @SVER@
  _PyEval_MatchKeys@Base @SVER@
  _PyEval_MonitorRaise@Base @SVER@
+ _PyEval_NoToolsForUnwind@Base @SVER@
  _PyEval_SetProfile@Base @SVER@
  _PyEval_SliceIndex@Base @SVER@
  _PyEval_SliceIndexNotNone@Base @SVER@
