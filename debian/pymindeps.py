@@ -128,7 +128,7 @@ excluded_imports = {
     'reprlib': set(('_dummy_thread',)),
     'shutil': set(('bz2','lzma', 'tarfile', 'zipfile')),
     #'socket': set(('_ssl',)),
-    '_sitebuiltins': set(('pydoc',)),
+    '_sitebuiltins': set(('_pyrepl', 'pydoc')),
     'subprocess': set(('dummy_threading',)),
     'sysconfig': set(('pprint','_osx_support', '_aix_support')),
     'tempfile': set(('_dummy_thread', 'shutil')),
