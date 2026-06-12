@@ -1,3 +1,9 @@
+python3.14 (3.14.6) bionic; urgency=medium
+
+  * Upstream
+
+ -- syphyr <syphyr@gmail.com>  Fri, 12 Jun 2026 21:52:00 +0200
+
 python3.14 (3.14.5) bionic; urgency=medium
 
   * Upstream
