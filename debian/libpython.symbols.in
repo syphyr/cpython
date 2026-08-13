@@ -1549,6 +1549,7 @@
  _PyTrash_thread_destroy_chain@Base @SVER@
  _PyTuple_FromArraySteal@Base @SVER@
  _PyTuple_Resize@Base @SVER@
+ _PyType_AllocNoTrack@Base @SVER@
  _PyType_GetDict@Base @SVER@
  _PyType_GetModuleByDef2@Base @SVER@
  _PyType_GetModuleByDef3@Base @SVER@
